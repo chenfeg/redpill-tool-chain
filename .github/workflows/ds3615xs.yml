@@ -37,7 +37,7 @@ jobs:
           cp sample_user_config.json ${{matrix.platform}}_user_config.json
 
           # 调整VID和PID
-          sed -i -e 's\0x0001\0x1000\g' -e 's\0x46f4\0x1000\g' ${{matrix.platform}}_user_config.json
+          sed -i -e 's\0x0001\0x090C\g' -e 's\0x46f4\0x1000\g' ${{matrix.platform}}_user_config.json
 
           # 调整SN和MAC 最好使用 actions secrets 引入
           sed -i -e 's\1234XXX123\C7LWN09761\g' -e 's\XXYYXXYYXXYY\0011322CA785\g' ${{matrix.platform}}_user_config.json
@@ -48,6 +48,8 @@ jobs:
           # 添加扩展驱动
           ./redpill_tool_chain.sh add https://github.com/jumkey/redpill-load/raw/develop/redpill-acpid/rpext-index.json
           ./redpill_tool_chain.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/r8168/rpext-index.json
+          ./redpill_tool_chain.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/redpill/rpext-index.json
+          ./redpill_tool_chain.sh add https://github.com/pocopico/rp-ext/raw/main/redpill-boot-wait/rpext-index.json
 
       - name: 添加 jumkey.misc
         if: endsWith(matrix.version,'42218')
